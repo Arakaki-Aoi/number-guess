@@ -1,54 +1,51 @@
 import random 
 
-# Validate integer input
-def int_validation_check(data):
-    try:
-        int(data)
-        return True
-    except ValueError:
-        return False
+# Game settings
+MIN_NUMBER = 1
+MAX_NUMBER = 10
+MAX_ATTEMPTS = 3
 
 # Validate input range
-def range_validation_check(data):
-    return 0 < data < 11
+def in_range(data):
+    return MIN_NUMBER <= data <= MAX_NUMBER
 
 # low or high check
 def guess_hint(answer, guess):
-    if guess > answer:
-        return "Too high!"
-    else:
-        return "Too low!"
+    return "Too high!" if guess > answer else "Too low!"
 
-# Start the game
-print("Game start!")
-
-# Generate random number
-random_number = random.randint(1, 10)
-is_valid_input = False
-
-# Get user input and validate
-for game_count in range(3):
-    while not is_valid_input:
-        user_input_number = input("Enter an integer between 1 and 10: ")
-        if int_validation_check(user_input_number):
-            int_user_input_number = int(user_input_number)
-            if range_validation_check(int_user_input_number):
-                is_valid_input = True
-            else:
-                print("Please enter a number between 1 and 10.")
-        else:
+# input and validate
+def input_and_validate():
+    while True:
+        guess = input(f"Enter an integer between {MIN_NUMBER} and {MAX_NUMBER}: ")
+        try:
+            guess_number = int(guess)
+        except ValueError:
             print("Please enter a valid integer.")
-    # Check the result
-    if random_number == int_user_input_number:
-        print("Correct! Great job!")
-        break
-    else:
-        is_valid_input = False
-        if game_count == 2:
+            continue
+        if in_range(guess_number):
+            return guess_number
+        print(f"Please enter a number between {MIN_NUMBER} and {MAX_NUMBER}.")
+
+def play_game():
+    print("Game start!")
+    random_number = random.randint(MIN_NUMBER, MAX_NUMBER)
+
+    # Get user input and validate
+    for attempt in range(MAX_ATTEMPTS):
+        guess_number = input_and_validate()
+
+        # Check the result
+        if random_number == guess_number:
+            print("Correct! Great job!")
+            break
+        remaining_attempts = MAX_ATTEMPTS - attempt - 1
+        if remaining_attempts == 0:
             print("Game over! The number was", random_number)
         else:
-            result = guess_hint(random_number, int_user_input_number)
-            if 2 - game_count == 1:
-                print(f"{result} Try again.\nYou have {2 - game_count} attempt left.")
+            result = guess_hint(random_number, guess_number)
+            if remaining_attempts == 1:
+                print(f"{result} Try again.\nYou have {remaining_attempts} attempt left.")
             else:
-                print(f"{result} Try again.\nYou have {2 - game_count} attempts left.")
+                print(f"{result} Try again.\nYou have {remaining_attempts} attempts left.")
+
+play_game()
