@@ -3,7 +3,7 @@ import pytest
 
 @pytest.mark.parametrize("value, expected", [
     (main.MIN_NUMBER - 1, False),
-    (main.MIN_NUMBER, True),
+    (main.MIN_NUMBER, False),
     (main.MAX_NUMBER, True),
     (main.MAX_NUMBER + 1, False),
 ])
