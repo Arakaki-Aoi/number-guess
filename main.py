@@ -1,4 +1,4 @@
-import random 
+import random
 
 # Game settings
 MIN_NUMBER = 1
@@ -48,4 +48,6 @@ def play_game():
             else:
                 print(f"{result} Try again.\nYou have {remaining_attempts} attempts left.")
 
-play_game()
+# Prevent automatic execution on import
+if __name__ == "__main__":
+    play_game()
