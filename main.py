@@ -6,8 +6,8 @@ MAX_NUMBER = 10
 MAX_ATTEMPTS = 3
 
 # Validate input range
-def in_range(data):
-    return MIN_NUMBER <= data <= MAX_NUMBER
+def in_range(number):
+    return MIN_NUMBER <= number <= MAX_NUMBER
 
 # low or high check
 def guess_hint(answer, guess):
