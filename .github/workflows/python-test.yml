@@ -1,0 +1,30 @@
+name: Python Test
+
+# Trigger
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    # Select the virtual machine provided by GitHub to run the tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Clone the repository into the virtual machine so the workflow can access the source code and tests
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      # Install and configure the specified Python version in the virtual machine
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # Install dependencies step
+      - name: Install dependencies
+        run: pip install pytest
+
+      # Run tests step
+      - name: Run tests
+        run: pytest
