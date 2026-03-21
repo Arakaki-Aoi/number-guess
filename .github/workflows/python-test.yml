@@ -23,7 +23,11 @@ jobs:
 
       # Install dependencies step
       - name: Install dependencies
-        run: pip install pytest pytest-cov
+        run: pip install pytest pytest-cov ruff
+
+      # Run ruff step
+      - name: Run Ruff
+        run: ruff check .
 
       # Run tests step
       - name: Run tests
