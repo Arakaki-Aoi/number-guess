@@ -23,8 +23,8 @@ jobs:
 
       # Install dependencies step
       - name: Install dependencies
-        run: pip install pytest
+        run: pip install pytest pytest-cov
 
       # Run tests step
       - name: Run tests
-        run: pytest
+        run: pytest --cov=. --cov-report=term-missing
